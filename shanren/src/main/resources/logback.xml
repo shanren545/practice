@@ -1,0 +1,128 @@
+<!-- if debug set to true, context info always print otherwise the contex 
+	info will print when error occour -->
+<configuration scan="true" scanPeriod="60 seconds" debug="false">
+    <contextName>kr-x-web</contextName>
+
+    <property name="LOG_HOME" value="${CATALINA_BASE}/logs" />
+
+    <!-- 按照每天生成日志文件 -->
+    <appender name="FILE"  class="ch.qos.logback.core.rolling.RollingFileAppender">
+    	<file>${LOG_HOME}/krplus.log</file>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <FileNamePattern>${LOG_HOME}/web/krplus.%d{yyyy-MM-dd}.log</FileNamePattern>
+            <MaxHistory>365</MaxHistory>
+        </rollingPolicy>
+        <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+            <pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level %logger{50} - %msg%n</pattern>
+        </encoder>
+         <filter class="ch.qos.logback.classic.filter.LevelFilter">
+        	<level>ERROR</level>  
+        	<onMatch>DENY</onMatch>  
+        	<onMismatch>ACCEPT</onMismatch>  
+    	</filter>  
+    </appender>
+    
+    <!-- 按照每天生成访问日志文件 -->
+    <appender name="accessLogAppender"  class="ch.qos.logback.core.rolling.RollingFileAppender">
+    	<file>${LOG_HOME}/access_log.log</file>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <FileNamePattern>${LOG_HOME}/web/access_log.%d{yyyy-MM-dd}.log</FileNamePattern>
+            <MaxHistory>365</MaxHistory>
+        </rollingPolicy>
+        <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+            <pattern>%d{yyyy-MM-dd HH:mm:ss.SSS}|%msg%n</pattern>
+        </encoder>
+    </appender>
+    
+    <appender name="ERR_FILE"  class="ch.qos.logback.core.rolling.RollingFileAppender">
+    	<file>${LOG_HOME}/krplus_err.log</file>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <FileNamePattern>${LOG_HOME}/web/krplus_err.%d{yyyy-MM-dd}.log</FileNamePattern>
+            <MaxHistory>365</MaxHistory>
+        </rollingPolicy>
+        <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+            <pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level %logger{50} - %msg%n</pattern>
+        </encoder>
+        <filter class="ch.qos.logback.classic.filter.LevelFilter">  
+        	<level>ERROR</level>  
+        	<onMatch>ACCEPT</onMatch>  
+        	<onMismatch>DENY</onMismatch>  
+    	</filter>  
+    </appender>
+
+
+    <appender name="SENSOR_DATA"  class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>${LOG_HOME}/web/qiye_sensor_data.log</file>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <FileNamePattern>${LOG_HOME}/web/qiye_sensor_data.%d{yyyy-MM-dd}.log</FileNamePattern>
+            <MaxHistory>365</MaxHistory>
+        </rollingPolicy>
+        <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+            <pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} - %msg%n</pattern>
+        </encoder>
+    </appender>
+
+    <!-- 数据库访问日志放在一个日志文件中
+    <appender name="DB_SQL_FILE"  class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <FileNamePattern>${LOG_HOME}/web/rong_db_sql.%d{yyyy-MM-dd}.log</FileNamePattern>
+            <MaxHistory>365</MaxHistory>
+        </rollingPolicy>
+        <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+            <pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level %logger{50} - %msg%n</pattern>
+        </encoder>
+    </appender>
+ 	-->
+
+    <!-- 定制spring -->
+    <logger name="org.springframework"  level="WARN" additivity="true">
+    </logger>
+
+    <logger name="org.quartz"  level="INFO" additivity="true">
+    </logger>
+
+    <!-- 定制mybatis -->
+    <logger name="org.mybatis"  level="WARN" additivity="true">
+    </logger>
+
+    <!-- 定制krplus -->
+    <logger name="com.kr"  level="INFO" additivity="true">
+    </logger>
+
+    <logger name="sensor_data_log" level="info" additivity="false">
+        <appender-ref ref="SENSOR_DATA"/>
+    </logger>
+    
+    <!-- 防止输出敏感信息  -->
+    <logger name="com.baidu.disconf.client.DisconfMgr"  level="WARN" additivity="true">
+    </logger>
+    
+    <logger name="accessLogger" level="INFO" additivity="false">
+		<appender-ref ref="accessLogAppender" />
+	</logger>
+
+    <!-- 数据库日志 
+    <logger name="com.kr.rong.mapper"  level="DEBUG" additivity="false">
+        <appender-ref ref="DB_SQL_FILE" />
+    </logger>
+     -->
+    <!--
+    <logger name="com.kr.company.mapper,
+			        com.kr.follow.mapper,
+			        com.kr.finace.mapper,
+			        com.kr.investor.mapper,
+			        com.kr.user.mapper,
+			        com.kr.checkcode.mapper,
+			        com.kr.workexperience.mapper,
+			        com.kr.tag.mapper,
+			        com.kr.finance.mapper,
+			        com.kr.org.mapper"  level="ERROR" additivity="false">
+        <appender-ref ref="FILE" />
+    </logger>
+    -->
+
+    <root level="INFO">
+        <appender-ref ref="FILE" />
+        <appender-ref ref="ERR_FILE" />
+    </root>
+</configuration>
