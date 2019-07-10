@@ -1,0 +1,109 @@
+<!-- if debug set to true, context info always print otherwise the contex 
+	info will print when error occour -->
+<configuration scan="true" scanPeriod="60 seconds" debug="false">
+    <contextName>krspace</contextName>
+
+    <property name="LOG_HOME" value="${PROJECT_HOME}/logs" />
+    <property resource="application.properties" />
+
+    <!-- 按照每天生成日志文件 -->
+    <appender name="FILE"  class="ch.qos.logback.core.rolling.RollingFileAppender">
+    	<file>${LOG_HOME}/krspace.log</file>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <FileNamePattern>${LOG_HOME}/history/krspace.%d{yyyy-MM-dd}.log</FileNamePattern>
+            <MaxHistory>365</MaxHistory>
+        </rollingPolicy>
+        <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+            <pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level %logger{50} - %msg%n</pattern>
+        </encoder>
+         <filter class="ch.qos.logback.classic.filter.LevelFilter">
+        	<level>ERROR</level>  
+        	<onMatch>DENY</onMatch>  
+        	<onMismatch>ACCEPT</onMismatch>  
+    	</filter>  
+    </appender>
+    
+    <appender name="ERR_FILE"  class="com.krspace.framework.log.logback.KrRollingFileAppender">
+    	<file>${LOG_HOME}/krspace_err.log</file>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <FileNamePattern>${LOG_HOME}/history/krspace_err.%d{yyyy-MM-dd}.log</FileNamePattern>
+            <MaxHistory>365</MaxHistory>
+        </rollingPolicy>
+        <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+            <pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level %logger{50} %property{X-Request-Id} - %msg%n</pattern>
+        </encoder>
+        <filter class="ch.qos.logback.classic.filter.LevelFilter">  
+        	<level>ERROR</level>  
+        	<onMatch>ACCEPT</onMatch>  
+        	<onMismatch>DENY</onMismatch>  
+    	</filter>  
+    </appender>
+
+    <!-- 错误日志发送到mq，一遍分析并发送邮件   -->
+    <appender name="AMQP_ERR" class="com.krspace.framework.log.logback.KrAmqpAppender">
+        <filter class="ch.qos.logback.classic.filter.LevelFilter">
+            <level>ERROR</level>
+            <onMatch>ACCEPT</onMatch>
+            <onMismatch>DENY</onMismatch>
+        </filter>
+        <layout>
+            <pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level %logger{50} %property{X-Request-Id} - %msg%n</pattern>
+        </layout>
+
+        <addresses>${spring.rabbitmq.addresses}</addresses>
+        <username>${spring.rabbitmq.username}</username>
+        <password>${spring.rabbitmq.password}</password>
+        <exchangeName>exchange.kr.log.err</exchangeName>
+
+        <applicationId>krspace-iot-platform-jar</applicationId>
+        <generateId>true</generateId>
+        <declareExchange>true</declareExchange>
+        <includeCallerData>true</includeCallerData>
+        <charset>UTF-8</charset>
+        <deliveryMode>NON_PERSISTENT</deliveryMode>
+    </appender>
+
+    <!-- 定制spring -->
+    <logger name="org.springframework"  level="WARN" additivity="true">
+    </logger>
+
+    <logger name="org.quartz"  level="INFO" additivity="true">
+    </logger>
+
+    <!-- 定制mybatis -->
+    <logger name="org.mybatis"  level="WARN" additivity="true">
+    </logger>
+
+    <logger name="com.krspace"  level="INFO" additivity="true">
+    </logger>
+
+    <!-- 防止输出敏感信息  -->
+    <logger name="com.baidu.disconf.client.DisconfMgr"  level="WARN" additivity="true">
+    </logger>
+    
+    <!-- 数据库日志 
+    <logger name="com.kr.rong.mapper"  level="DEBUG" additivity="false">
+        <appender-ref ref="DB_SQL_FILE" />
+    </logger>
+     -->
+    <!--
+    <logger name="com.kr.company.mapper,
+			        com.kr.follow.mapper,
+			        com.kr.finace.mapper,
+			        com.kr.investor.mapper,
+			        com.kr.user.mapper,
+			        com.kr.checkcode.mapper,
+			        com.kr.workexperience.mapper,
+			        com.kr.tag.mapper,
+			        com.kr.finance.mapper,
+			        com.kr.org.mapper"  level="ERROR" additivity="false">
+        <appender-ref ref="FILE" />
+    </logger>
+    -->
+
+    <root level="INFO">
+        <appender-ref ref="FILE" />
+        <appender-ref ref="ERR_FILE" />
+        <appender-ref ref="AMQP_ERR" />
+    </root>
+</configuration>
