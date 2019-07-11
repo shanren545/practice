@@ -44,21 +44,28 @@ public class Rsa {
         encryptedData = encryptByPublicKey(contentData, publicKey);
         System.out.println("密文：" + Base64.getEncoder().encodeToString(encryptedData));
         decryptedData = decryptByPrivateKey(encryptedData, privateKey);
+        System.out.println("密文：" + Base64.getEncoder().encodeToString(encryptedData));
+        decryptedData = decryptByPrivateKey(encryptedData, privateKey);
         System.out.println("私钥解密数据：" + new String(decryptedData));
 
-        //byte[] hash = DigestUtils.sha256(contentData);
-        byte[] hash = encryptSHA(contentData);
-        encryptedData = encryptByPrivateKey(hash, privateKey);
-        System.out.println("DIY签名：" + Base64.getEncoder().encodeToString(encryptedData));
+        // byte[] hash = DigestUtils.sha256(contentData);
+        // byte[] hash = encryptSHA(contentData);
+        byte[] diySign = encryptByPrivateKey(encryptSHA(contentData), privateKey);
+        String diySignStr = Base64.getEncoder().encodeToString(diySign);
+        System.out.println("DIY签名：" + diySignStr);
+        // boolean diyRt = verify(contentData, publicKey, diySignStr);
+        // System.out.println("DIY签名验证结果：" + diyRt);
 
         String sign = sign(contentData, privateKey);
-        System.out.println("签名：" + sign);
+        System.out.println("签          名：" + sign);
+        sign = sign(contentData, privateKey);
+        System.out.println("签          名：" + sign);
 
         boolean rt = verify(contentData, publicKey, sign);
         System.out.println("签名验证结果：" + rt);
     }
-    
-    public static byte[] encryptSHA(byte[] data)throws Exception{
+
+    public static byte[] encryptSHA(byte[] data) throws Exception {
         MessageDigest sha = MessageDigest.getInstance("SHA-256");
         sha.update(data);
         return sha.digest();
@@ -77,7 +84,8 @@ public class Rsa {
         System.out.println("RSAPrivateKey.getAlgorithm:" + privateKey.getAlgorithm());
         Cipher cipher = Cipher.getInstance("RSA");
         cipher.init(Cipher.ENCRYPT_MODE, privateKey);
-        return cipher.doFinal(data);
+        cipher.update(data);
+        return cipher.doFinal();
     }
 
     public static byte[] decryptByPrivateKey(byte[] data, RSAPrivateKey privateKey) throws Exception {
@@ -139,7 +147,8 @@ public class Rsa {
         signature.initSign(privateKey);
         signature.update(data);
 
-        return Base64.getEncoder().encodeToString(signature.sign());
+        final byte[] sign = signature.sign();
+        return Base64.getEncoder().encodeToString(sign);
     }
 
     public static boolean verify(byte[] data, RSAPublicKey publicKey, String sign) throws Exception {
