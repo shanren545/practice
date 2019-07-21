@@ -83,7 +83,7 @@ public class ForkJoinTest2 {
             final Long rt2 = sub2.join();
             final Long rt1 = sub1.join();
             // final Long rt2 = sub2.join();
-            return rt1 + rt2;
+            return rt1 + rt2; 
         }
 
     }
