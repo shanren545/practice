@@ -18,6 +18,11 @@ public class WordcountDriver {
         // 需要将大量的跟jar包程序运行相关的参数进行描述
         Configuration conf = new Configuration();
 
+        // 本地调试时
+       // conf.set("fs.default.name", "file:///");
+       // conf.set("mapred.job.tracker", "local");
+
+
         Job job = Job.getInstance(conf);
 
         // job.setJar("/root/wc.jar");

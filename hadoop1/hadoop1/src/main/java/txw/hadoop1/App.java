@@ -1,5 +1,8 @@
 package txw.hadoop1;
 
+import java.util.concurrent.BlockingQueue;
+import java.util.concurrent.TimeUnit;
+
 /**
  * Hello world!
  *
