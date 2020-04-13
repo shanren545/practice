@@ -1,3 +1,5 @@
 *.classpath
 *.project
 shanren/.settings/
+hadoop1/hadoop1/target/
+hadoop1/hadoop1/.settings/
