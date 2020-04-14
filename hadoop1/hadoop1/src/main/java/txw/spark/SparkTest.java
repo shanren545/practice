@@ -1,7 +1,7 @@
 /**
  * 
  */
-package txw.hadoop1.spark;
+package txw.spark;
 
 import java.util.Arrays;
 import java.util.List;
