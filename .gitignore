@@ -1,9 +1,6 @@
 *.classpath
 *.project
 shanren/.settings/
-<<<<<<< HEAD
 hadoop1/hadoop1/src/main/resources/output/
-=======
 hadoop1/hadoop1/target/
 hadoop1/hadoop1/.settings/
->>>>>>> 022cbf55ab4ae5bd9c43b9c5a8c9da6598de4477
