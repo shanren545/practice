@@ -1,4 +1,5 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 
@@ -18,7 +19,7 @@
 
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-		<java.version>1.8</java.version>
+		<java.version>12</java.version>
 		<!-- <spring-boot.version>2.0.4.RELEASE</spring-boot.version> -->
 		<spring-boot.version>2.0.6.RELEASE</spring-boot.version>
 		<spring-cloud.version>Finchley.SR2</spring-cloud.version>
@@ -385,7 +386,8 @@
 				<scope>runtime</scope>
 			</dependency>
 			<dependency>
-				<!-- 将 JCL（Jakarta Commons Logging，现在叫 Apache Commons Logging） 进行日志记录转交给 SLF4J 处理 -->
+				<!-- 将 JCL（Jakarta Commons Logging，现在叫 Apache Commons Logging） 进行日志记录转交给 
+					SLF4J 处理 -->
 				<groupId>org.slf4j</groupId>
 				<artifactId>jcl-over-slf4j</artifactId>
 				<version>${slf4j.version}</version>
@@ -600,7 +602,13 @@
 				<version>${elasticsearch}</version>
 			</dependency>
 			<!-- elasticsearch end -->
-
+			<dependency>
+				<groupId>io.projectreactor</groupId>
+				<artifactId>reactor-bom</artifactId>
+				<version>Bismuth-RELEASE</version>
+				<type>pom</type>
+				<scope>import</scope>
+			</dependency>
 		</dependencies>
 	</dependencyManagement>
 
@@ -610,7 +618,8 @@
 			<groupId>org.slf4j</groupId>
 			<artifactId>slf4j-api</artifactId>
 		</dependency>
-		<!--<dependency> <groupId>log4j</groupId> <artifactId>log4j</artifactId> </dependency> -->
+		<!--<dependency> <groupId>log4j</groupId> <artifactId>log4j</artifactId> 
+			</dependency> -->
 		<dependency>
 			<groupId>org.slf4j</groupId>
 			<artifactId>log4j-over-slf4j</artifactId>
@@ -638,13 +647,16 @@
 
 		<!-- -->
 		<!-- Apache Commons 开始 -->
-		<!-- <dependency> <groupId>commons-beanutils</groupId> <artifactId>commons-beanutils</artifactId> </dependency> -->
-		<!-- <dependency> <groupId>commons-collections</groupId> <artifactId>commons-collections</artifactId> </dependency> -->
+		<!-- <dependency> <groupId>commons-beanutils</groupId> <artifactId>commons-beanutils</artifactId> 
+			</dependency> -->
+		<!-- <dependency> <groupId>commons-collections</groupId> <artifactId>commons-collections</artifactId> 
+			</dependency> -->
 		<dependency>
 			<groupId>org.apache.commons</groupId>
 			<artifactId>commons-collections4</artifactId>
 		</dependency>
-		<!-- <dependency> <groupId>commons-lang</groupId> <artifactId>commons-lang</artifactId> </dependency> -->
+		<!-- <dependency> <groupId>commons-lang</groupId> <artifactId>commons-lang</artifactId> 
+			</dependency> -->
 		<dependency>
 			<groupId>org.apache.commons</groupId>
 			<artifactId>commons-lang3</artifactId>
@@ -684,6 +696,20 @@
 			<artifactId>commons-codec</artifactId>
 		</dependency>
 
+		<dependency>
+			<groupId>io.projectreactor</groupId>
+			<artifactId>reactor-core</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>io.projectreactor</groupId>
+			<artifactId>reactor-test</artifactId>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<scope>test</scope>
+		</dependency>
 	</dependencies>
 
 	<distributionManagement>
