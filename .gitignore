@@ -4,3 +4,7 @@ shanren/.settings/
 hadoop1/hadoop1/src/main/resources/output/
 hadoop1/hadoop1/target/
 hadoop1/hadoop1/.settings/
+hadoop1/hadoop1/data/
+hadoop1/hadoop1/demoApplication.log.1
+hadoop1/hadoop1/mergedDF.json
+hadoop1/hadoop1/people.parquet/
