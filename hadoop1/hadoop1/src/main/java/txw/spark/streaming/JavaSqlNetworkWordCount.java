@@ -69,7 +69,7 @@ public final class JavaSqlNetworkWordCount {
     // Convert RDDs of the words DStream to DataFrame and run SQL query
     words.foreachRDD((rdd, time) -> {
       SparkSession spark = JavaSparkSessionSingleton.getInstance(rdd.context().getConf());
-
+      spark.streams().get("id");
       // Convert JavaRDD[String] to JavaRDD[bean class] to DataFrame
       JavaRDD<JavaRecord> rowRDD = rdd.map(word -> {
         JavaRecord record = new JavaRecord();
@@ -77,10 +77,10 @@ public final class JavaSqlNetworkWordCount {
         return record;
       });
       Dataset<Row> wordsDataFrame = spark.createDataFrame(rowRDD, JavaRecord.class);
-
+      
       // Creates a temporary view using the DataFrame
       wordsDataFrame.createOrReplaceTempView("words");
-
+      wordsDataFrame.writeStream().foreach(null).start().id();
       // Do word count on table using SQL and print it
       Dataset<Row> wordCountsDataFrame =
           spark.sql("select word, count(*) as total from words group by word");
