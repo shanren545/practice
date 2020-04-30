@@ -54,7 +54,6 @@ public class WordCountSQL {
 		// run a SQL query on the Table and retrieve the result as a new Table
 		Table table = tEnv.sqlQuery(
 			"SELECT word, SUM(frequency) as frequency FROM WordCount GROUP BY word");
-
 		DataSet<WC> result = tEnv.toDataSet(table, WC.class);
 
 		result.print();

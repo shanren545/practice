@@ -20,8 +20,13 @@ package txw.flink.table;
 
 import org.apache.flink.api.java.DataSet;
 import org.apache.flink.api.java.ExecutionEnvironment;
+import org.apache.flink.streaming.api.datastream.DataStream;
+import org.apache.flink.streaming.api.environment.StreamExecutionEnvironment;
+import org.apache.flink.table.api.EnvironmentSettings;
 import org.apache.flink.table.api.Table;
+import org.apache.flink.table.api.TableEnvironment;
 import org.apache.flink.table.api.java.BatchTableEnvironment;
+import org.apache.flink.table.api.java.StreamTableEnvironment;
 
 /**
  * Simple example for demonstrating the use of the Table API for a Word Count in Java.
@@ -37,6 +42,20 @@ public class WordCountTable {
 	// *************************************************************************
 
 	public static void main(String[] args) throws Exception {
+//	    EnvironmentSettings fsSettings = EnvironmentSettings.newInstance().useOldPlanner().inStreamingMode().build();
+//	    StreamExecutionEnvironment fsEnv = StreamExecutionEnvironment.getExecutionEnvironment();
+//	    StreamTableEnvironment fsTableEnv = StreamTableEnvironment.create(fsEnv, fsSettings);
+//	    ExecutionEnvironment fbEnv = ExecutionEnvironment.getExecutionEnvironment();
+//	    BatchTableEnvironment fbTableEnv = BatchTableEnvironment.create(fbEnv);
+//	    
+//	    StreamExecutionEnvironment bsEnv = StreamExecutionEnvironment.getExecutionEnvironment();
+//	    EnvironmentSettings bsSettings = EnvironmentSettings.newInstance().useBlinkPlanner().inStreamingMode().build();
+//	    StreamTableEnvironment bsTableEnv = StreamTableEnvironment.create(bsEnv, bsSettings);
+//	    
+//	    EnvironmentSettings bbSettings = EnvironmentSettings.newInstance().useBlinkPlanner().inBatchMode().build();
+//	    TableEnvironment bbTableEnv = TableEnvironment.create(bbSettings);
+	    
+
 		ExecutionEnvironment env = ExecutionEnvironment.getExecutionEnvironment();
 		BatchTableEnvironment tEnv = BatchTableEnvironment.create(env);
 
