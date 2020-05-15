@@ -1,4 +1,4 @@
-
+/*
 package txw.flink.streaming.examples.statemachine;
 
 import org.apache.flink.api.common.functions.RichFlatMapFunction;
@@ -22,19 +22,19 @@ import org.apache.flink.util.Collector;
 
 import java.util.Properties;
 
-/**
+*//**
  * Main class of the state machine example.
  * This class implements the streaming application that receives the stream of events and evaluates
  * a state machine (per originating address) to validate that the events follow
  * the state machine's rules.
- */
+ *//*
 public class StateMachineExample {
 
-	/**
+	*//**
 	 * Main entry point for the program.
 	 *
 	 * @param args The command line arguments.
-	 */
+	 *//*
 	public static void main(String[] args) throws Exception {
 
 		// ---- print some usage help ----
@@ -127,15 +127,15 @@ public class StateMachineExample {
 
 	// ------------------------------------------------------------------------
 
-	/**
+	*//**
 	 * The function that maintains the per-IP-address state machines and verifies that the
 	 * events are consistent with the current state of the state machine. If the event is not
 	 * consistent with the current state, the function produces an alert.
-	 */
+	 *//*
 	@SuppressWarnings("serial")
 	static class StateMachineMapper extends RichFlatMapFunction<Event, Alert> {
 
-		/** The state for the current key. */
+		*//** The state for the current key. *//*
 		private ValueState<State> currentState;
 
 		@Override
@@ -173,3 +173,4 @@ public class StateMachineExample {
 		}
 	}
 }
+*/
