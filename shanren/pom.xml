@@ -1,5 +1,4 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 
@@ -386,8 +385,7 @@
 				<scope>runtime</scope>
 			</dependency>
 			<dependency>
-				<!-- 将 JCL（Jakarta Commons Logging，现在叫 Apache Commons Logging） 进行日志记录转交给 
-					SLF4J 处理 -->
+				<!-- 将 JCL（Jakarta Commons Logging，现在叫 Apache Commons Logging） 进行日志记录转交给 SLF4J 处理 -->
 				<groupId>org.slf4j</groupId>
 				<artifactId>jcl-over-slf4j</artifactId>
 				<version>${slf4j.version}</version>
@@ -618,8 +616,7 @@
 			<groupId>org.slf4j</groupId>
 			<artifactId>slf4j-api</artifactId>
 		</dependency>
-		<!--<dependency> <groupId>log4j</groupId> <artifactId>log4j</artifactId> 
-			</dependency> -->
+		<!--<dependency> <groupId>log4j</groupId> <artifactId>log4j</artifactId> </dependency> -->
 		<dependency>
 			<groupId>org.slf4j</groupId>
 			<artifactId>log4j-over-slf4j</artifactId>
@@ -647,16 +644,13 @@
 
 		<!-- -->
 		<!-- Apache Commons 开始 -->
-		<!-- <dependency> <groupId>commons-beanutils</groupId> <artifactId>commons-beanutils</artifactId> 
-			</dependency> -->
-		<!-- <dependency> <groupId>commons-collections</groupId> <artifactId>commons-collections</artifactId> 
-			</dependency> -->
+		<!-- <dependency> <groupId>commons-beanutils</groupId> <artifactId>commons-beanutils</artifactId> </dependency> -->
+		<!-- <dependency> <groupId>commons-collections</groupId> <artifactId>commons-collections</artifactId> </dependency> -->
 		<dependency>
 			<groupId>org.apache.commons</groupId>
 			<artifactId>commons-collections4</artifactId>
 		</dependency>
-		<!-- <dependency> <groupId>commons-lang</groupId> <artifactId>commons-lang</artifactId> 
-			</dependency> -->
+		<!-- <dependency> <groupId>commons-lang</groupId> <artifactId>commons-lang</artifactId> </dependency> -->
 		<dependency>
 			<groupId>org.apache.commons</groupId>
 			<artifactId>commons-lang3</artifactId>
@@ -695,6 +689,33 @@
 			<groupId>commons-codec</groupId>
 			<artifactId>commons-codec</artifactId>
 		</dependency>
+
+
+		<!-- https://mvnrepository.com/artifact/org.ow2.asm/asm -->
+		<dependency>
+			<groupId>org.ow2.asm</groupId>
+			<artifactId>asm</artifactId>
+			<version>8.0.1</version>
+		</dependency>
+		<!-- https://mvnrepository.com/artifact/cglib/cglib -->
+		<dependency>
+			<groupId>cglib</groupId>
+			<artifactId>cglib</artifactId>
+			<!-- <version>3.3.0</version> -->
+		</dependency>
+		<!-- https://mvnrepository.com/artifact/org.javassist/javassist -->
+		<dependency>
+			<groupId>org.javassist</groupId>
+			<artifactId>javassist</artifactId>
+			<version>3.27.0-GA</version>
+		</dependency>
+		<!-- https://mvnrepository.com/artifact/net.bytebuddy/byte-buddy -->
+		<dependency>
+			<groupId>net.bytebuddy</groupId>
+			<artifactId>byte-buddy</artifactId>
+			<version>1.10.11</version>
+		</dependency>
+
 
 		<dependency>
 			<groupId>io.projectreactor</groupId>

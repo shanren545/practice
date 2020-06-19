@@ -15,7 +15,7 @@ public class MyLock {
 
     public void lock() throws InterruptedException {
         while (!state.compareAndSet(0, 1)) {
-            lk.wait();
+            lk.wait(); //这里有问题，wait必须在同步块中执行，否则异常
             // LockSupport.park();
         }
         owner = Thread.currentThread();
@@ -28,6 +28,12 @@ public class MyLock {
         owner = null; // 先做清理工作，最后设置状态
         state.set(0);// unlock state
         lk.notify();
+    }
+    
+    
+    public static void main(String[] args) throws InterruptedException {
+        Object obj = new Object();
+        obj.wait(3000);
     }
 
 
