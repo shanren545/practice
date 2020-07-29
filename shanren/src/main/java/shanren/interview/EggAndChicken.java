@@ -1,10 +1,11 @@
-package shanren;
+package shanren.interview;
 
 import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.concurrent.ArrayBlockingQueue;
 import java.util.concurrent.Callable;
@@ -16,7 +17,7 @@ import java.util.concurrent.locks.LockSupport;
 
 import com.google.common.collect.Streams;
 
-public class T {
+public class EggAndChicken {
 
     public static void main(String[] args) throws InterruptedException, ExecutionException {
 
@@ -53,8 +54,12 @@ public class T {
         // System.out.println(i);
         // }
 
-        fanxing();
+        // fanxing();
 
+
+        LinkedHashMap<Integer, Integer> map = new LinkedHashMap();
+        map.put(1, 1);
+        map.put(2, 3);
 
         // List<String>[] lsa = new List<String>[10]; // Not really allowed.
         // Object o = lsa;
@@ -72,11 +77,62 @@ public class T {
         li.add(new Integer(3));
         oa[1] = li; // Correct.
         Integer i = (Integer) lsa[1].get(0); // OK
+
+        // System.out.println(canBuy(300, 100));
+        canBuy();
+    }
+
+    public static boolean canBuy(int restM, int restChiken) {
+        if (restM == 0 && restChiken == 0) {
+            return true;
+        }
+        if (restM <= 0 || restChiken <= 0) {
+            return false;
+        }
+        System.out.println(restM + "," + restChiken);
+        canBuy(restM - 15, restChiken - 1);
+        canBuy(restM - 9, restChiken - 1);
+        canBuy(restM - 1, restChiken - 1);
+        return false;
+    }
+
+    public static void canBuy() {
+        for (int x = 0; x <= 100 / 5; x++) {
+            for (int y = 0; y <= 100 / 3; y++) {
+                for (int z = 0; z <= 100 * 3; z++) {
+                    if ((x + y + z) == 100 && (15 * x + 9 * y + 1 * z) == 3 * 100) {
+                        System.out.println("x:" + x + ",y:" + y + ",z:" + z);
+                    }
+                }
+            }
+        }
+
+        System.out.println("==========");
+        for (int x = 0; x <= 100 / 5; x++) {
+            final int tmp = 100 - 7 * x;
+            int y = tmp / 4;
+            if (tmp % 4 != 0) {
+                continue;
+            }
+            if (y > 100 / 3 || y < 0) {
+                continue;
+            }
+            int z = 100 - x - y;
+            if (z > 300 || z < 0) {
+                continue;
+            }
+            System.out.println("x:" + x + ",y:" + y + ",z:" + z);
+        }
     }
 
 
     private static int size() {
         System.out.println("size");
+        try {
+
+        } catch (Exception e) {
+            // TODO: handle exception
+        }
         return 10;
     }
 
@@ -94,7 +150,7 @@ public class T {
 
         l2 = l3;
 
-        Arrays.stream(T.class.getMethods()).forEach(System.out::println);
+        Arrays.stream(EggAndChicken.class.getMethods()).forEach(System.out::println);
 
         final String unsignedString = Integer.toUnsignedString(-1);
         Integer i = Integer.parseUnsignedInt(unsignedString);
@@ -122,6 +178,24 @@ public class T {
         @Override
         public Date getValue() {
             return null;
+        }
+    }
+
+    public static class A {
+        public static void show() {
+            System.out.println(" Static Method of A");
+        }
+    }
+    public static class B extends A {
+        // @Override
+        public static void show() {
+            System.out.println("Static Method of B");
+
+        }
+
+        public void show(String d) {
+            System.out.println("Static Method of B");
+
         }
     }
 
