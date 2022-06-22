@@ -29,7 +29,7 @@
 		<javax.el-api.version>2.2.4</javax.el-api.version>
 		<lts.version>1.7.0</lts.version>
 		<curator.version>2.12.0</curator.version>
-		<elasticsearch>6.3.2</elasticsearch>
+		<elasticsearch>6.8.15</elasticsearch>
 		<mysql.version>5.1.44</mysql.version>
 
 		<!-- ###########################start override parent properties -->
