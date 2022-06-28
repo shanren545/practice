@@ -362,7 +362,7 @@
 				<groupId>org.apache.poi</groupId>
 				<artifactId>poi</artifactId>
 				<!-- <version>3.17</version>最好升级一下，以前的可能有bug，不过framework里面封装的类需要升级一下 -->
-				<version>3.14</version>
+				<version>4.1.1</version>
 			</dependency>
 			<dependency>
 				<groupId>org.apache.poi</groupId>
